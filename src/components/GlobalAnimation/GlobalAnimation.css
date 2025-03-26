@@ -1,0 +1,16 @@
+    .global-animation-container {
+        position: fixed; /* Ensures it covers the whole viewport */
+        top: 0;
+        left: 0;
+        width: 100vw;
+        height: 100vh;
+        z-index: -1; /* Places it behind other content */
+        overflow: hidden;
+    }
+    
+    .global-animation-container canvas {
+        width: 100%;
+        height: 100%;
+        display: block;
+    }
+    
