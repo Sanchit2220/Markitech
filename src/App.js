@@ -40,7 +40,7 @@ function Layout() {
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/about" element={<About />} />
-        <Route path="/Admin" element={<Sidebar />} />
+        <Route path="/admin" element={<Sidebar />} />
 
         <Route path="/blogs" element={<Blogs />} />
         <Route path="/login" element={<LoginPage />} />
