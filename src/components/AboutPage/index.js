@@ -415,7 +415,7 @@ const AboutPage = () => {
 
       .to('img', {
 
-        scale: 4,
+        scale: 3.5,
 
         z: 50,
 
@@ -433,7 +433,7 @@ const AboutPage = () => {
 
         {
 
-          scale: 5,
+          scale: 1.4,
 
           transformOrigin: 'center center',
 

@@ -1,6 +1,7 @@
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { useEffect, useRef, useState } from "react";
+import { useLocation } from "react-router-dom"; // Import useLocation
 import styled from "styled-components";
 import logo1 from "../../assets/logo1.svg";
 
@@ -17,7 +18,6 @@ const Headers = styled.header`
   left: 0;
   z-index: 500;
   transition: all 0.5s;
-    
 `;
 
 const Logo = styled.a`
@@ -35,15 +35,13 @@ const MiddleContent = styled.div`
   flex-grow: 1;
   text-align: center;
   opacity: 1;
-  
   transition: opacity 0.5s ease;
   font-size: 40px;
   font-weight: 400;
   font-family: sans-serif;
   color: black;
   width: 10vw;
-  margin-top :10px;
- 
+  margin-top: 10px;
 `;
 
 const Button = styled.button`
@@ -71,14 +69,14 @@ const MobileMenu = styled.nav`
   justify-content: center;
   padding: 1rem;
   position: absolute;
-  top:65%;
+  top: 65%;
   right: 0;
   background-color: rgb(53 53 63 / 95%);
   border-radius: 10px;
   margin: 0.5rem;
   z-index: 1000;
   width: 20vw;
-  height:30vh;
+  height: 30vh;
 
   a {
     color: var(--white);
@@ -93,6 +91,7 @@ const Header = () => {
   const [showMenu, setShowMenu] = useState(false);
   const ref = useRef(null);
   const contentRef = useRef(null);
+  const location = useLocation(); // Get current route
 
   gsap.registerPlugin(ScrollTrigger);
 
@@ -135,13 +134,15 @@ const Header = () => {
         <img src={logo1} alt="markitech" />
       </Logo>
 
-      <MiddleContent ref={contentRef}>
-        <p>
-        We help brands create digital
-
-<br /> experiences that connect with<br/>their audience
-        </p>
-      </MiddleContent>
+      {/* Middle Content is only visible on the Home page */}
+      {location.pathname === "/" && (
+        <MiddleContent ref={contentRef}>
+          <p>
+            We help brands create digital
+            <br /> experiences that connect with<br /> their audience
+          </p>
+        </MiddleContent>
+      )}
 
       <div style={{ display: "flex", alignItems: "center", gap: "1rem" }}>
         <Button onClick={() => setShowMenu(!showMenu)}>Menu...</Button>
@@ -150,14 +151,13 @@ const Header = () => {
 
       <MobileMenu show={showMenu}>
         <a href="/">Home</a>
-        <a href="/about" >About Us</a>
-        <a href="services">Services</a>
-        <a href="blogs">Blogs</a>
-
+        <a href="/about">About Us</a>
+        <a href="/services">Services</a>
+        <a href="/blogs">Blogs</a>
+{/* 
         <a href="#contact" onClick={(e) => e.preventDefault()}>
           <Button>Contact Us</Button>
-        </a>
- 
+        </a> */}
       </MobileMenu>
     </Headers>
   );
