@@ -82,7 +82,7 @@ const CloseIcon = styled(AiIcons.AiOutlineClose)`
 const sidebarData = [
   { title: 'New User', path: '/signup' },
   { title: 'All Blogs', path: '/AllBlogs'},
-  { title: 'Products', path: '/products' },
+  { title: 'Add blog', path: '/add-blog' },
   { title: 'Team', path: '/team' },
   { title: 'Messages', path: '/messages' },
   { title: 'Support', path: '/support' }

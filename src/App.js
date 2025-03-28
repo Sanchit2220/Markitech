@@ -1,10 +1,10 @@
 import { BrowserRouter as Router, Routes, Route, useLocation } from "react-router-dom";
 import { GlobalStyle } from "./globalStyles";
 import { lazy, Suspense } from "react";
-
+import ProtectedRoute from "./ProtectedRoute";
 import SplashCursor from "./components/GlobalAnimation";
 import Sidebar from "./components/Sidebar";
- 
+ import AddBlog from "./components/AddBlog";
 const WebDevelopmentService = lazy(() => import("./Pages/WebDevelopmentService"));
 const CloudDevelopment = lazy(()=> import("./Pages/CloudDevelopment"));
 const AppDevelopmentService = lazy(()=> import("./Pages/AppDevelopmentService"));
@@ -27,7 +27,7 @@ function Layout() {
   const location = useLocation();
   
   // Define routes where the Header should be hidden
-  const hideHeaderRoutes = ["/login", "/about","/admin" ,"/signup"];
+  const hideHeaderRoutes = ["/login", "/about","/admin" ,"/signup","/add-blog"];
   
   return (
     <>
@@ -39,12 +39,14 @@ function Layout() {
       
       <Routes>
         <Route path="/" element={<Home />} />
+        <Route path="/add-blog" element={ <ProtectedRoute><AddBlog /></ProtectedRoute>} />
+
         <Route path="/about" element={<About />} />
-        <Route path="/admin" element={<Sidebar />} />
+        <Route path="/admin" element={<ProtectedRoute><Sidebar /></ProtectedRoute>} />
 
         <Route path="/blogs" element={<Blogs />} />
         <Route path="/login" element={<LoginPage />} />
-        <Route path="/Signup" element={<Signup />} />
+        <Route path="/signup" element={<ProtectedRoute><Signup /></ProtectedRoute>} />
 
         <Route path="/services" element={<Services />} />
         <Route path="/services/web-development" element={<WebDevelopmentService />} />

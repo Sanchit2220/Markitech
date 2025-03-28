@@ -1,55 +1,20 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
 import axios from "axios";
 
-// Styled Components (NO CHANGES HERE)
+// Styled Components
 const Container = styled.div`
   position: relative;
   width: 100%;
   background-color: #fff;
   min-height: 100vh;
-  overflow: hidden;
-
-  &::before {
-    content: "";
-    position: absolute;
-    height: 2000px;
-    width: 2000px;
-    top: -10%;
-    right: 48%;
-    transform: translateY(-50%);
-    background-image: linear-gradient(-45deg, #4481eb 0%, #04befe 100%);
-    transition: 1.8s ease-in-out;
-    border-radius: 50%;
-    z-index: 6;
-  }
+  display: flex;
+  justify-content: center;
+  align-items: center;
 `;
 
-const FormsContainer = styled.div`
-  position: absolute;
-  width: 100%;
-  height: 100%;
-  top: 0;
-  left: 0;
-`;
-
-const SignInSignUpWrapper = styled.div`
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  width: 40%;
-  transition: 1s 0.7s ease-in-out;
-  display: grid;
-  z-index: 8;
-
-  @media (max-width: 870px) {
-    width: 80%;
-  }
-`;
-
-const SignInFormWrapper = styled.form`
+const FormWrapper = styled.form`
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -57,6 +22,7 @@ const SignInFormWrapper = styled.form`
   background: white;
   border-radius: 10px;
   box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+  width: 350px;
 `;
 
 const Title = styled.h2`
@@ -65,59 +31,25 @@ const Title = styled.h2`
   margin-bottom: 15px;
 `;
 
-const InputField = styled.div`
-  width: 100%;
-  background-color: #f0f0f0;
-  margin: 10px 0;
-  height: 50px;
-  border-radius: 25px;
-  display: flex;
-  align-items: center;
-  padding: 0 1rem;
-  position: relative;
-`;
-
 const Input = styled.input`
-  flex: 1;
-  background: none;
-  border: none;
-  outline: none;
-  font-size: 1rem;
-  color: #333;
-  padding-left: 10px;
-
-  ::placeholder {
-    color: #aaa;
-    font-weight: 500;
-  }
+  width: 100%;
+  padding: 10px;
+  margin: 10px 0;
+  border-radius: 5px;
+  border: 1px solid #ddd;
 `;
 
-const TogglePassword = styled.span`
-  cursor: pointer;
-  position: absolute;
-  right: 15px;
-  color: #666;
-  font-size: 1rem;
-  user-select: none;
-`;
-
-const SubmitButton = styled.button`
-  width: 150px;
+const Button = styled.button`
+  width: 100%;
   background-color: #5995fd;
   border: none;
-  outline: none;
   height: 45px;
-  border-radius: 25px;
+  border-radius: 5px;
   color: white;
   text-transform: uppercase;
   font-weight: 600;
-  margin: 15px 0;
   cursor: pointer;
-  transition: 0.3s;
-
-  &:hover {
-    background-color: #4d84e2;
-  }
+  margin-top: 10px;
 `;
 
 const Message = styled.p`
@@ -127,12 +59,17 @@ const Message = styled.p`
 `;
 
 const Login = () => {
-  const [username, setUsername] = useState(""); 
+  const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [message, setMessage] = useState({ text: "", error: false });
   const [loading, setLoading] = useState(false);
-  const [showPassword, setShowPassword] = useState(false);
   const navigate = useNavigate();
+
+  useEffect(() => {
+    if (localStorage.getItem("token")) {
+      navigate("/admin"); // Redirect if already logged in
+    }
+  }, [navigate]);
 
   const handleLogin = async (e) => {
     e.preventDefault();
@@ -147,11 +84,11 @@ const Login = () => {
 
     try {
       const response = await axios.post("http://localhost:5000/api/login", {
-        username, // Now sending username instead of email
+        username,
         password,
       });
 
-      localStorage.setItem("user", JSON.stringify(response.data.user));
+      localStorage.setItem("token", response.data.token);
       setMessage({ text: "Login successful! Redirecting...", error: false });
 
       setTimeout(() => navigate("/admin"), 1500);
@@ -167,40 +104,25 @@ const Login = () => {
 
   return (
     <Container>
-      <FormsContainer>
-        <SignInSignUpWrapper>
-          <SignInFormWrapper onSubmit={handleLogin}>
-            <Title>Sign In</Title>
-
-            <InputField>
-              <Input
-                type="text"
-                placeholder="Username"
-                value={username}
-                onChange={(e) => setUsername(e.target.value)}
-              />
-            </InputField>
-
-            <InputField>
-              <Input
-                type={showPassword ? "text" : "password"}
-                placeholder="Password"
-                value={password}
-                onChange={(e) => setPassword(e.target.value)}
-              />
-              <TogglePassword onClick={() => setShowPassword(!showPassword)}>
-                {showPassword ? "🙈" : "👁️"}
-              </TogglePassword>
-            </InputField>
-
-            <SubmitButton type="submit" disabled={loading}>
-              {loading ? "Logging in..." : "Login"}
-            </SubmitButton>
-
-            {message.text && <Message error={message.error}>{message.text}</Message>}
-          </SignInFormWrapper>
-        </SignInSignUpWrapper>
-      </FormsContainer>
+      <FormWrapper onSubmit={handleLogin}>
+        <Title>Sign In</Title>
+        <Input
+          type="text"
+          placeholder="Username"
+          value={username}
+          onChange={(e) => setUsername(e.target.value)}
+        />
+        <Input
+          type="password"
+          placeholder="Password"
+          value={password}
+          onChange={(e) => setPassword(e.target.value)}
+        />
+        <Button type="submit" disabled={loading}>
+          {loading ? "Logging in..." : "Login"}
+        </Button>
+        {message.text && <Message error={message.error}>{message.text}</Message>}
+      </FormWrapper>
     </Container>
   );
 };
