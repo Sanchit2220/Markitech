@@ -7,7 +7,7 @@ import styled from "styled-components";
 const ContactSection = styled.section`
   width: 100vw;
   padding: calc(2.5rem + 2.5vw) 0;
-  background-color: #0a0b10;
+  background-color: #ececec;
   display: flex;
   flex-direction: column;
   /* justify-content: center; */
@@ -16,7 +16,7 @@ const ContactSection = styled.section`
 `;
 
 const Title = styled.h1`
-  color: var(--white);
+  color: black;
   display: inline-block;
   font-size: 2rem;
   margin-bottom: 3rem;
@@ -42,6 +42,8 @@ const Icons = styled.div`
       img {
         filter: invert(20%) sepia(100%) saturate(500%) hue-rotate(580deg)
           brightness(100%) contrast(97%);
+          
+ 
       }
     }
     &:not(:last-child) {
@@ -50,6 +52,9 @@ const Icons = styled.div`
     img {
       width: 3rem;
       height: 3rem;
+       background-color :black;
+       color:black;
+
     }
   }
 `;
@@ -98,10 +103,10 @@ const Form = styled.form`
   }
   button {
     padding: 0.8rem 2rem;
-    background-color: var(--white);
+    background-color: black;;
     border-radius: 20px;
     font-size: 1.2rem;
-    color: #0a0b10;
+    color: white;
     cursor: pointer;
     transition: transform 0.3s;
     &:hover {

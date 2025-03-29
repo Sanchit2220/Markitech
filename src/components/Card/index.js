@@ -3,7 +3,7 @@ import styled from "styled-components";
 const CARD = styled.div`
   height: calc(8rem + 12vw);
   width: calc(9rem + 12vw);
-  background-color: var(--nav2);
+  background-color: white;
   border-radius: 20px;
   position: relative;
   margin-top: calc(5rem + 5vw);
@@ -11,7 +11,7 @@ const CARD = styled.div`
   flex-direction: column;
   justify-content: center;
   align-items: center;
-`;
+ `;
 
 const Image = styled.div`
   width: 40%;
@@ -30,7 +30,7 @@ const Image = styled.div`
 `;
 
 const TEXT = styled.h4`
-  color: var(--white);
+  color: black;
   padding: 0 calc(1rem + 1vw);
 
   text-align: center;

@@ -12,6 +12,7 @@ const Section = styled.div`
   flex-direction: column;
   justify-content: center;
   align-items: center;
+  background-color :white;
   width: 100%;
   padding: 5rem 0;
 `;
@@ -55,7 +56,7 @@ const Carousal = styled.div`
   }
   .slick-slider .slick-dots button:before {
     color: #0a0b10;
-    font-size: 1.5rem;
+    font-size: 1rem;
   }
   .slick-slide.slick-active {
     display: flex;

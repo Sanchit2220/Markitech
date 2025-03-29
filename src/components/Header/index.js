@@ -3,7 +3,7 @@ import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { useEffect, useRef, useState } from "react";
 import { useLocation } from "react-router-dom"; // Import useLocation
 import styled from "styled-components";
-import logo1 from "../../assets/logo1.svg";
+import logo1 from "../../assets/header-logo.svg";
 
 const Headers = styled.header`
   display: flex;
@@ -23,11 +23,11 @@ const Headers = styled.header`
 const Logo = styled.a`
   display: flex;
   align-items: center;
-  width: 2rem;
+  width: 5rem;
   height: auto;
   cursor: pointer;
   img {
-    width: 8rem;
+    width: 13rem;
   }
 `;
 

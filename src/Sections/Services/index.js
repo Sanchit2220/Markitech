@@ -17,14 +17,52 @@ const services = [
   { title: "Social Media", image: Service1 },
 ];
 
+const FeatureTitleWrapper = styled.div`
+  width: 90%;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  margin-top: 10vh;
+  margin-bottom: 16px;
+  position: relative;
+`;
 
+const FeatureTitleContainer = styled.div`
+  display: flex;
+  align-items: flex-start;
+  position: relative;
+`;
 
 const FeatureTitle = styled.h1`
-  font-size: 6rem;
-  text-align: center;
-  margin-bottom: 16px;
-  margin-top: 20vh;
+  font-size: 18rem;
+  font-weight :100;
+  text-align: left;
+  margin: 0;
+  position: relative;
 `;
+
+const ServiceCountWrapper = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  position: absolute;
+  top: 20px; /* Move downward */
+  right: -150px; /* Push left */
+ `;
+
+const ServiceCount = styled.small`
+  font-size: 5rem;
+  color: black;
+  font-weight: 100;
+`;
+
+const Arrow = styled.span`
+  display: inline-block;
+  font-size: 9rem;
+  transform: rotate(96deg);
+  color: black;
+  font-weight :100;
+ `;
 
 const CardContainer = styled(motion.div)`
   background: white;
@@ -38,13 +76,11 @@ const CardContainer = styled(motion.div)`
   display: flex;
   flex-direction: column;
   transition: transform 0.3s ease;
-  
+
   @media (max-width: 768px) {
     width: 50vw;
     height: 80vh;
   }
-
-
 `;
 
 const CardImage = styled.img`
@@ -52,7 +88,6 @@ const CardImage = styled.img`
   height: 100%;
   object-fit: cover;
   border-radius: 12px;
-  
 `;
 
 const CardTextWrapper = styled.div`
@@ -161,15 +196,23 @@ const Card = ({ image, title }) => {
 const ServicePage = () => {
   return (
     <AppContainer>
-      <FeatureTitle>Services</FeatureTitle>
+      <FeatureTitleWrapper>
+        <FeatureTitleContainer>
+          <FeatureTitle>Services</FeatureTitle>
+          <ServiceCountWrapper>
+            <ServiceCount>{services.length}</ServiceCount>
+            <Arrow>&#8599;</Arrow>
+          </ServiceCountWrapper>
+        </FeatureTitleContainer>
+      </FeatureTitleWrapper>
       <CardsWrapper>
         {services.map((service, index) => (
           <Card key={index} image={service.image} title={service.title} />
         ))}
       </CardsWrapper>
       <FallingText
-        text={`HTML CSS JavaScript React Angular Vue Node.js Express PHP Django Flask Laravel Bootstrap Tailwind WordPress API Backend Frontend Full-stack Database Keywords Backlinks Optimization SERP Ranking Traffic Crawling Indexing Meta Schema Analytics On-page Off-page Link-building Sitemap Robots.txt Authority Content Domain Trustflow Branding Conversion Engagement Outreach PPC Ads Social Viral Influencer Promotion Audience ROI Strategy Copywriting Funnels Lead Growth Visibility Automation Campaign Investigation Surveillance Target Contract Reward Wanted Fugitive Capture Chase Pursuit Evidence Law Bond Arrest Security Confidential Undercover Justice Enforcement Negotiation Android iOS Swift Kotlin Flutter ReactNative Firebase UX UI Testing Deployment SDK Debugging Cross-platform Prototype Agile API Framework Performance Monetization`}
-        highlightWords={["React", "Bits", "animated", "components", "simplify", "JavaScript", "Angular", "Vue", "Node.js", "Express"]}
+        text="HTML CSS JavaScript React Angular Vue Node.js Express PHP Django Flask Laravel Bootstrap Tailwind WordPress API Backend Frontend Full-stack Database SEO PPC Social Media Marketing"
+        highlightWords={["React", "Angular", "Vue", "Node.js", "Express"]}
         highlightClass="highlighted"
         trigger="hover"
         backgroundColor="transparent"

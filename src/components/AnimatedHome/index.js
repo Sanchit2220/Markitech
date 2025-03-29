@@ -1,6 +1,6 @@
 import React, { useEffect, useRef, useState } from "react";
 import   './Waves.css'
-import dhruv from '../../assets/vn.svg'
+import dhruv from '../../assets/Animation-logo.svg'
 
  
 

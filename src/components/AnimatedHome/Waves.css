@@ -1,10 +1,12 @@
 .container-neuro {
   position: relative;
-  width: 80vw; /* 80% of the viewport width */
+  width: 85vw; /* 80% of the viewport width */
   overflow: hidden; /* Prevent overflow outside the container */
   margin: 0 auto; /* Center the container horizontally */
   margin-top: 25vh;
   background: #000000;
+  height: 73vh;
+  border-radius: 1cm;
 }
 
 .canvas {
@@ -25,7 +27,7 @@
 
 .section {
   width: 100%;
-  height: 90vh;
+  height: 100vh;
   display: flex;
   justify-content: center; /* Center horizontally */
   align-items: center; /* Center vertically */
@@ -36,13 +38,12 @@
 /* Centering the logo */
 .img-logo {
   position: absolute;
-  top: 50%;
+  top: 35%;
   left: 50%;
   width: 30vw;
   transform: translate(-50%, -50%);
   z-index: 99999;
-  max-width: 100%; /* Prevent image overflow */
- 
+  
 }
 
 /* Responsive adjustments */

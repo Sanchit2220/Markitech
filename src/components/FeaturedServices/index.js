@@ -18,8 +18,7 @@ const FeatureTitle = styled.h1`
 const CardContainer = styled.div`
   background: white;
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-  border-radius: 16px;
-  width: 45vw;
+   width: 45vw;
   height: 60vh;
   position: relative;
   overflow: hidden;
@@ -58,6 +57,7 @@ const AppContainer = styled.div`
   flex-direction: column;
   justify-content: center;
   align-items: center;
+ 
   min-height: 100vh;
    padding: 16px;
   overflow: hidden;
@@ -68,6 +68,7 @@ const CardsWrapper = styled.div`
   flex-wrap: nowrap;
   width: 90vw;
   justify-content: space-between;
+ 
   gap: 25px;
   overflow: hidden;
   @media (max-width: 768px) {
@@ -118,7 +119,7 @@ From strategy to execution, we drive measurable results.
 Your trusted digital marketing agency for success." />
         <Card image={service2} title="Delivering cutting-edge web development solutions for modern businesses.
 Seamless, scalable, and high-performance digital experiences.
-Your trusted partner for innovative web development." />
+Your trusted partner." />
       </CardsWrapper>
     </AppContainer>
   );
