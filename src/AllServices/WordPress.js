@@ -30,13 +30,13 @@ const WordPressPage = () => {
 
   const [imagesLoaded, setImagesLoaded] = useState(false);
 
-  const [showOdd, setShowOdd] = useState(true); // State to conditionally render details-odd
+  const [showOdd, setShowOdd] = useState(true);
 
   const order = Array.from({ length: data.length }, (_, i) => i);
 
   let detailsEven = true;
 
- 
+  const [isHovered, setIsHovered] = useState(false);
 
   const offsetTop = useRef(200);
 
@@ -50,7 +50,8 @@ const WordPressPage = () => {
 
   const ease = 'sine.inOut';
 
- 
+  const loopTimeout = useRef(null);
+  const allTweens = useRef([]);
 
   const getCard = (index) => `#card${index}`;
 
@@ -58,27 +59,18 @@ const WordPressPage = () => {
 
   const getSliderItem = (index) => `#slide-item-${index}`;
 
- 
-
   const animate = (target, duration, properties) => {
 
     return new Promise((resolve) => {
-
-      gsap.to(target, {
-
+      const tween = gsap.to(target, {
         ...properties,
-
         duration: duration,
-
         onComplete: resolve,
-
       });
-
+      allTweens.current.push(tween);
     });
 
   };
-
- 
 
   const loadImages = async () => {
 
@@ -112,8 +104,6 @@ const WordPressPage = () => {
 
   };
 
- 
-
   const init = () => {
 
     const [active, ...rest] = order;
@@ -130,8 +120,6 @@ const WordPressPage = () => {
 
  
 
-    // Set initial styles
-
     gsap.set('#pagination', {
 
       top: offsetTop.current + 330,
@@ -147,8 +135,6 @@ const WordPressPage = () => {
     gsap.set('nav', { y: -200, opacity: 1 });
 
  
-
-    // Set the active card to full window size and lower its opacity
 
     gsap.set(getCard(active), {
 
@@ -169,8 +155,6 @@ const WordPressPage = () => {
     gsap.set(getCardContent(active), { x: 0, y: 0 });
 
  
-
-    // Set other cards to be placed off-screen
 
     rest.forEach((i, index) => {
 
@@ -212,8 +196,6 @@ const WordPressPage = () => {
 
  
 
-    // Animate the initial card entrance
-
     gsap.to('.cover', {
 
       x: width + 400,
@@ -226,7 +208,11 @@ const WordPressPage = () => {
 
         setTimeout(() => {
 
-          loop(); // Loop through the cards
+          if (!isHovered) {
+
+            loop();
+
+          }
 
         }, 500);
 
@@ -235,8 +221,6 @@ const WordPressPage = () => {
     });
 
  
-
-    // Animate the rest of the cards
 
     rest.forEach((i, index) => {
 
@@ -268,8 +252,6 @@ const WordPressPage = () => {
 
  
 
-    // Animate navigation and pagination elements
-
     gsap.to('#pagination', { y: 0, opacity: 1, ease, delay: startDelay });
 
     gsap.to('nav', { y: 0, opacity: 1, ease, delay: startDelay });
@@ -282,11 +264,9 @@ const WordPressPage = () => {
 
   };
 
- 
-
   const step = async () => {
 
-    order.push(order.shift()); // Rotate order
+    order.push(order.shift());
 
     detailsEven = !detailsEven;
 
@@ -298,8 +278,6 @@ const WordPressPage = () => {
 
  
 
-    // Update content with current data
-
     document.querySelector(`${detailsActive} .place-box .text`).textContent = data[order[0]].place;
 
     document.querySelector(`${detailsActive} .title-1`).textContent = data[order[0]].title;
@@ -309,8 +287,6 @@ const WordPressPage = () => {
     document.querySelector(`${detailsActive} .desc`).textContent = data[order[0]].description;
 
  
-
-    // Animation sequence
 
     gsap.set(detailsActive, { zIndex: 22 });
 
@@ -339,8 +315,6 @@ const WordPressPage = () => {
     });
 
  
-
-    // Reposition and animate the cards
 
     gsap.to(getCard(order[0]), {
 
@@ -404,9 +378,15 @@ const WordPressPage = () => {
 
   };
 
- 
-
   const loop = async () => {
+
+    if (isHovered) {
+
+      clearTimeout(loopTimeout.current);
+
+      return;
+
+    }
 
     try {
 
@@ -418,7 +398,7 @@ const WordPressPage = () => {
 
       await step();
 
-      loop();
+      loopTimeout.current = setTimeout(loop, 0);
 
     } catch (error) {
 
@@ -428,7 +408,24 @@ const WordPressPage = () => {
 
   };
 
- 
+  const handleMouseEnter = () => {
+
+    setIsHovered(true);
+  
+    clearTimeout(loopTimeout.current);
+    allTweens.current.forEach(tween => tween.pause());
+
+  };
+
+  const handleMouseLeave = () => {
+
+    setIsHovered(false);
+    
+    allTweens.current.forEach(tween => tween.resume());
+
+    loop();
+
+  };
 
   useLayoutEffect(() => {
 
@@ -440,7 +437,7 @@ const WordPressPage = () => {
 
         if (imagesLoaded) {
 
-          init(); // Call the init function once images are loaded
+          init();
 
         }
 
@@ -458,13 +455,15 @@ const WordPressPage = () => {
 
     return () => {
 
-      gsap.killTweensOf('*'); // Cleanup GSAP animations
+      gsap.killTweensOf('*');
+
+      clearTimeout(loopTimeout.current);
+      
+      setIsHovered(false);
 
     };
 
   }, [imagesLoaded]);
-
- 
 
   return (
 
@@ -482,13 +481,13 @@ const WordPressPage = () => {
 
               className="card"
 
-              id={`card${index}`}
+              id={`card${index}`} 
 
-              style={{ backgroundImage: `url(${item.image})` }}
+              style={{ backgroundImage: `url(${item.image})` }} 
 
             ></div>
 
-            <div className="card-content" id={`card-content-${index}`}>
+            <div className="card-content" id={`card-content-${index}`} onMouseEnter={handleMouseEnter} onMouseLeave={handleMouseLeave} >
 
               <div className="content-start"></div>
 
@@ -505,14 +504,6 @@ const WordPressPage = () => {
         ))}
 
       </div>
-
- 
-
-      {/* Conditionally render the details sections */}
-
-     
-
- 
 
       <div className="details" id="details-even">
 
@@ -532,8 +523,6 @@ const WordPressPage = () => {
 
       </div>
 
- 
-
       <div className="pagination" id="pagination">
 
         <div className="progress-sub-background"></div>
@@ -541,8 +530,6 @@ const WordPressPage = () => {
         <div className="progress-sub-foreground"></div>
 
       </div>
-
- 
 
       <div className="cover"></div>
 
