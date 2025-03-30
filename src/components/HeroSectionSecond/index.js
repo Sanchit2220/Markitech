@@ -126,14 +126,7 @@ const HeroSectionSecond = () => {
           and accelerate business growth. Our experienced team blends creativity
           and technology to deliver impactful solutions that set businesses
           apart in the digital and physical world.
-          <MyButton
-            onClick={() => {
-              /* your function */
-            }}
-          >
-            About Us
-          </MyButton>
-         
+         <SparkleButton   label="About Us" />
         </Paragraph>
       </TextWrapper>
     </Section>

@@ -1,9 +1,10 @@
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { useEffect, useRef, useState } from "react";
-import { useLocation } from "react-router-dom"; // Import useLocation
+import { useLocation } from "react-router-dom";
 import styled from "styled-components";
 import logo1 from "../../assets/header-logo.svg";
+import SparkleButton from "../SparkleButton";
 
 const Headers = styled.header`
   display: flex;
@@ -44,46 +45,28 @@ const MiddleContent = styled.div`
   margin-top: 10px;
 `;
 
-const Button = styled.button`
-  background-color: var(--purple);
-  width: 10vw;
-  height: 5vh;
-  padding: 0.5rem 1rem;
-  border-radius: 20px;
-  color: var(--white);
-  font-weight: 600;
-  cursor: pointer;
-  transition: all 0.2s;
-  &:hover {
-    transform: scale(1.1);
-  }
-  &:focus {
-    transform: scale(0.9);
-  }
-`;
-
 const MobileMenu = styled.nav`
   display: ${(props) => (props.show ? "flex" : "none")};
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  padding: 1rem;
   position: absolute;
   top: 65%;
   right: 0;
-  background-color: rgb(53 53 63 / 95%);
+  background-color: rgba(53, 53, 63, 0.95);
   border-radius: 10px;
   margin: 0.5rem;
   z-index: 1000;
-  width: 20vw;
-  height: 30vh;
-
+  width: 25vw;
+  height: 40vh;
+  
   a {
-    color: var(--white);
-    font-weight: 600;
-    font-size: 1.2rem;
-    margin: 0.5rem;
-    cursor: pointer;
+    width: 100%; /* Full width */
+    text-align: center;
+  }
+  
+  button {
+    width: 100%; /* Full width buttons */
   }
 `;
 
@@ -91,7 +74,7 @@ const Header = () => {
   const [showMenu, setShowMenu] = useState(false);
   const ref = useRef(null);
   const contentRef = useRef(null);
-  const location = useLocation(); // Get current route
+  const location = useLocation();
 
   gsap.registerPlugin(ScrollTrigger);
 
@@ -126,15 +109,19 @@ const Header = () => {
         scrub: true,
       },
     });
+
+    return () => {
+      gsap.killTweensOf(element);
+      gsap.killTweensOf(contentElement);
+    };
   }, []);
 
   return (
     <Headers ref={ref}>
-      <Logo>
+      <Logo href="/">
         <img src={logo1} alt="markitech" />
       </Logo>
 
-      {/* Middle Content is only visible on the Home page */}
       {location.pathname === "/" && (
         <MiddleContent ref={contentRef}>
           <p>
@@ -145,19 +132,46 @@ const Header = () => {
       )}
 
       <div style={{ display: "flex", alignItems: "center", gap: "1rem" }}>
-        <Button onClick={() => setShowMenu(!showMenu)}>Menu...</Button>
-        <Button>Contact Us</Button>
+        <div onClick={() => setShowMenu((prev) => !prev)} style={{ cursor: "pointer" }}>
+          <SparkleButton label="Menu" />
+        </div>
+        <a
+          href="/contact-us"> <SparkleButton label="Contact Us" /></a>
       </div>
 
       <MobileMenu show={showMenu}>
-        <a href="/">Home</a>
-        <a href="/about">About Us</a>
-        <a href="/services">Services</a>
-        <a href="/blogs">Blogs</a>
-{/* 
-        <a href="#contact" onClick={(e) => e.preventDefault()}>
-          <Button>Contact Us</Button>
-        </a> */}
+        <a
+          href="/"
+          onClick={(e) => {
+            setShowMenu(false);
+          }}
+        >
+          <SparkleButton label="Home" />
+        </a>
+        <a
+          href="/about"
+          onClick={(e) => {
+             setShowMenu(false);
+          }}
+        >
+          <SparkleButton label="About" />
+        </a>
+        <a
+          href="/services"
+          onClick={(e) => {
+             setShowMenu(false);
+          }}
+        >
+          <SparkleButton label="Services" />
+        </a>
+        <a
+          href="/blogs"
+          onClick={(e) => {
+             setShowMenu(false);
+          }}
+        >
+          <SparkleButton label="Blogs" />
+        </a>
       </MobileMenu>
     </Headers>
   );

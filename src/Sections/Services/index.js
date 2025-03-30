@@ -210,17 +210,7 @@ const ServicePage = () => {
           <Card key={index} image={service.image} title={service.title} />
         ))}
       </CardsWrapper>
-      <FallingText
-        text="HTML CSS JavaScript React Angular Vue Node.js Express PHP Django Flask Laravel Bootstrap Tailwind WordPress API Backend Frontend Full-stack Database SEO PPC Social Media Marketing"
-        highlightWords={["React", "Angular", "Vue", "Node.js", "Express"]}
-        highlightClass="highlighted"
-        trigger="hover"
-        backgroundColor="transparent"
-        wireframes={false}
-        gravity={0.56}
-        fontSize="2rem"
-        mouseConstraintStiffness={0.9}
-      />
+   
     </AppContainer>
   );
 };

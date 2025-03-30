@@ -20,7 +20,9 @@ const Blogs = lazy(() => import("./Pages/Blogs"));
 const Header = lazy(() => import("./components/Header/index"));
 const Footer = lazy(() => import("./components/Footer/index"));
  const LoginPage = lazy(() => import("./Pages/Login")); 
- const Signup = lazy(() => import("./Pages/Signup")); 
+ const Signup = lazy(() => import("./Pages/Signup"));
+ const ContactUs = lazy(() => import("./Pages/ContactUs")); 
+ 
 
 
 function Layout() {
@@ -45,11 +47,14 @@ function Layout() {
         <Route path="/admin" element={<ProtectedRoute><Sidebar /></ProtectedRoute>} />
 
         <Route path="/blogs" element={<Blogs />} />
+        <Route path="/contact-us" element={<ContactUs />} />
+
         <Route path="/login" element={<LoginPage />} />
         <Route path="/signup" element={<ProtectedRoute><Signup /></ProtectedRoute>} />
 
         <Route path="/services" element={<Services />} />
         <Route path="/services/web-development" element={<WebDevelopmentService />} />
+        
         <Route path="/services/app-development" element={<AppDevelopmentService />} />
         <Route path="/services/cloud-service" element={<CloudDevelopment />} />
         <Route path="/services/by-per-click" element={<ByPerClickService />} />

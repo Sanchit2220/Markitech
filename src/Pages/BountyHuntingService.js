@@ -3,8 +3,7 @@
 //Import all the require sections here
 
 import styled from "styled-components";
- import ServicePage from "../Sections/Services";
- import ServiceAnimationComponent from "../AllServices/webDevelopment";
+ 
  const Container = styled.div`
   display: flex;
   flex-direction: column;
@@ -17,7 +16,7 @@ const BountyHuntingService = () => {
   return (
     <Container>
    
-     
+     <BountyHuntingService/>
         </Container>
   );
 };
