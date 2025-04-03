@@ -1,107 +1,75 @@
-import React, { useState, useEffect } from 'react';
+import React from 'react'; // Removed useState, useEffect as they are not used here
 import styled from 'styled-components';
-import Contact from '../../Sections/Contact';
+import Contact from '../../Sections/Contact'; // Assuming Contact component exists
+import ThreadsTicket from '../ContactUsCards'; // Assuming ThreadsTicket component exists and is correctly imported
 
+// Main container for the whole page section
 const ContactUsContainer = styled.div`
   display: flex;
-  justify-content: space-between;
+  justify-content: space-around; /* Adjust spacing between ticket grid and form */
+  align-items: flex-start; /* Align items at the top */
+  flex-wrap: wrap; /* Allow wrapping on smaller screens */
   padding: 40px;
-  background: #f9f9f9;
+  background: #f9f9f9; // Example background
   min-height: 100vh;
+  gap: 30px; /* Add gap between the ticket grid and the form */
 `;
 
-const CardsContainer = styled.div`
-  width: 50%;
-  display: flex;
+// NEW: Container specifically for the ThreadsTicket components
+const TicketsGridContainer = styled.div`
+   display: flex;
   flex-wrap: wrap;
-  gap: 10px;
-  margin-top:10vh;
+  gap: 20px; /* Spacing between tickets */
+  justify-content: center; /* Center tickets within the grid container */
+
+  /* Adjust width for larger screens to sit next to the form */
+  @media (min-width: 1024px) {
+    width: 50%; /* Adjust width to fit alongside the form */
+    justify-content: flex-start; /* Align tickets to the start */
+  }
+
+  /* Target direct children (ThreadsTicket's wrapper) if needed, but ThreadsTicket should handle its own size */
+  & > * {
+    flex-basis: calc(50% - 10px); /* Try to fit 2 per line, accounting for gap */
+    max-width: calc(50% - 10px); /* Ensure max width respects the basis */
+
+    /* Adjust for smaller screens if tickets become too small */
+    @media (max-width: 600px) {
+       flex-basis: 100%;
+       max-width: 100%; /* Full width on small screens */
+    }
+  }
 `;
 
-const CardWrapper = styled.div`
-  width: 48%;
-  height: 250px;
-  perspective: 1200px;
-  cursor: pointer;
-`;
-
-const CardInner = styled.div`
-  width: 100%;
-  height: 100%;
-  position: relative;
-  transform-style: preserve-3d;
-  transition: transform 0.6s, width 0.3s, height 0.3s;
-  transform: ${({ isFlipped }) => (isFlipped ? 'rotateY(180deg)' : 'rotateY(0)')};
-`;
-
-const CardFace = styled.div`
-  width: 100%;
-  height: 100%;
-  position: absolute;
-  backface-visibility: hidden;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  padding: 20px;
-  border-radius: 10px;
-  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
-  font-size: 1.3em;
-`;
-
-const CardFront = styled(CardFace)`
-  background: white;
-  color: black;
-`;
-
-const CardBack = styled(CardFace)`
-  background: black;
-  color: white;
-  transform: rotateY(180deg);
-`;
-
+// Container for the Contact Form
 const FormContainer = styled.div`
-  width: 60%;
-  height: 100%;
+  width: 100%; /* Take full width initially */
+  max-width: 40vw; /* Max width for the form */
   padding: 0px;
   display: flex;
-  align-items: center;
-  justify-content: center;
-  margin-top: 10vh;
+  justify-content: center; /* Center the Contact component */
+
+  /* Adjust width for larger screens */
+  @media (min-width: 1024px) {
+    width: 70%; /* Adjust width */
+  }
 `;
 
 const ContactPage = () => {
-  const [flippedIndex, setFlippedIndex] = useState(null);
-
-  useEffect(() => {
-    if (flippedIndex !== null) {
-      const timer = setTimeout(() => {
-        setFlippedIndex(null); // Reset the flipped card after 3 seconds
-      }, 3000);
-      return () => clearTimeout(timer); // Clean up timer
-    }
-  }, [flippedIndex]);
+  // Removed the flipping logic as it wasn't connected to ThreadsTicket
+  // const [flippedIndex, setFlippedIndex] = useState(null);
+  // useEffect(() => { ... }, [flippedIndex]);
 
   return (
     <ContactUsContainer>
-      <CardsContainer>
-        {['Our Address', 'Email', 'Phone', 'Working Hours'].map((title, index) => (
-          <CardWrapper key={index} onClick={() => setFlippedIndex(index)}>
-            <CardInner isFlipped={flippedIndex === index}>
-              <CardFront>
-                <h3>{title}</h3>
-              </CardFront>
-              <CardBack>
-                <p>
-                  {title === 'Our Address' && '123 Main Street, City, Country'}
-                  {title === 'Email' && 'contact@example.com'}
-                  {title === 'Phone' && '+123 456 7890'}
-                  {title === 'Working Hours' && 'Mon - Fri: 9:00 AM - 6:00 PM'}
-                </p>
-              </CardBack>
-            </CardInner>
-          </CardWrapper>
-        ))}
-      </CardsContainer>
+      {/* Wrap the ThreadsTicket components in the new grid container */}
+      <TicketsGridContainer>
+        <ThreadsTicket/>
+        <ThreadsTicket />
+        <ThreadsTicket/>
+        <ThreadsTicket />
+      </TicketsGridContainer>
+
       <FormContainer>
         <Contact />
       </FormContainer>

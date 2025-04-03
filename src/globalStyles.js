@@ -24,6 +24,7 @@ html{
   scroll-behavior:smooth;
   
 }
+  
     body,
     html,
     a {

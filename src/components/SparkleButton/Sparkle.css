@@ -374,7 +374,7 @@ button:is(:hover, :focus-visible) {
 
     letter-spacing: 0.01ch;
 
-    background: linear-gradient(90deg, hsl(0 0% calc((var(--active) * 100%) + 65%)), hsl(0 0% calc((var(--active) * 100%) + 26%)));
+    background: black;
 
     -webkit-background-clip: text;
 

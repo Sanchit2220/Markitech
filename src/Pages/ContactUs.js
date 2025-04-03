@@ -5,6 +5,7 @@ import styled from "styled-components";
 import Login from "../components/Login"
 import Contact from "../Sections/Contact";
 import ContactPage from "../components/ContactUs";
+import ThreadsTicket from "../components/ContactUsCards";
 const Container = styled.div`
  
 `;
@@ -14,6 +15,7 @@ const ContactUs = () => {
    
    <Container>
    <ContactPage/>
+  
    </Container>
  );
 };

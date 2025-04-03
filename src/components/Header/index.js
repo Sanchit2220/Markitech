@@ -53,7 +53,7 @@ const MobileMenu = styled.nav`
   position: absolute;
   top: 65%;
   right: 0;
-  background-color: rgba(53, 53, 63, 0.95);
+  background-color: white;
   border-radius: 10px;
   margin: 0.5rem;
   z-index: 1000;

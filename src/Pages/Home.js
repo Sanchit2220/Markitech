@@ -25,7 +25,7 @@ const Home = () => {
     <Container>
 
  <HeroSection/>
- 
+ {/* <ScrollDraw/> */}
  <HeroSectionSecond/>
  <FeaturedServices/>
    <ConnectComponent/>
