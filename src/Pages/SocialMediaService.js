@@ -3,8 +3,6 @@
 //Import all the require sections here
 
 import styled from "styled-components";
- import ServicePage from "../Sections/Services";
- import ServiceAnimationComponent from "../AllServices/webDevelopment";
 import SocialMediaPage from "../AllServices/SocialMedia";
  const Container = styled.div`
   display: flex;

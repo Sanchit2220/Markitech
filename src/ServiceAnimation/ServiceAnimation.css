@@ -36,6 +36,7 @@
   justify-content: center;
   height: 20vh;
   text-align: center;
+ 
 }
 
 .heading {
@@ -43,7 +44,7 @@
   font-weight: bold;
   display: flex;
   flex-direction: column;
-  margin-top:40%;
+  margin-top:20%;
  }
 
 .line {

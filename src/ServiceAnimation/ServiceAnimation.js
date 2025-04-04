@@ -195,6 +195,14 @@ const FallingText = ({
         overflow: "hidden",
       }}
     >
+             <h3> +   &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;  is your big idea ready to go wild          &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;   +</h3>
+
+       <div className="heading-container">
+        <h1 className="heading">
+          <span className="line">Let's Work </span>
+          <span className="line">Together!</span>
+        </h1>
+      </div>
       <div
         ref={textRef}
         className="falling-text-target"
@@ -203,13 +211,7 @@ const FallingText = ({
           lineHeight: 1.4,
         }}
       />
-       <h3> +   &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;  is your big idea ready to go wild          &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;   +</h3>
-        <div className="heading-container">
-        <h1 className="heading">
-          <span className="line">Let's Work </span>
-          <span className="line">Together!</span>
-        </h1>
-      </div>
+       
       <div ref={canvasContainerRef} className="falling-text-canvas" />
     </div>
   

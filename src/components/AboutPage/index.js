@@ -5,6 +5,7 @@ import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 
 import styled, { createGlobalStyle } from 'styled-components';
+import ParallaxStars from '../AboutAnimation';
 
  
 
@@ -95,93 +96,6 @@ const Wrapper = styled.div`
 
 `;
 
- 
-
-const Intro = styled.div`
-
-  position: absolute;
-
-  left: 0;
-
-  top: 0;
-
-  right: auto;
-
-  bottom: auto;
-
-  z-index: 2;
-
-  display: flex;
-
-  width: 100%;
-
-  height: 100vh;
-
-  flex-direction: column;
-
-  justify-content: center;
-
-  align-items: center;
-
-  color: #ff0000;
-
-`;
-
- 
-
-const IntroH1 = styled.h1`
-
-  font-size: 40px;
-
-  font-family: "Beth Ellen", cursive;
-
- 
-
-  @media (max-width: 768px) {
-
-    font-size: 30px;
-
-  }
-
- 
-
-  @media (max-width: 480px) {
-
-    font-size: 24px;
-
-  }
-
-`;
-
- 
-
-const IntroP = styled.p`
-
-  font-size: 60px;
-
-  font-family: "Chelsea Market", system-ui;
-
-  font-weight: bolder;
-
- 
-
-  @media (max-width: 768px) {
-
-    font-size: 50px;
-
-  }
-
- 
-
-  @media (max-width: 480px) {
-
-    font-size: 35px;
-
-  }
-
-`;
-
- 
 
 const Content = styled.div`
 
@@ -209,45 +123,7 @@ const Content = styled.div`
 
  
 
-const ImageContainer = styled.div`
 
-  width: 100%;
-
-  height: 100vh;
-
-  position: absolute;
-
-  top: 0;
-
-  left: 0;
-
-  right: 0;
-
-  z-index: 2;
-
-  perspective: 500px;
-
-  overflow: hidden;
-
-`;
-
- 
-
-const ImageContainerImg = styled.img`
-
-  width: 100%;
-
-  height: 100%;
-
-  object-fit: cover;
-
-  object-position: center center;
-
-  position: relative;
-
-  z-index: 1;
-
-`;
 
  
 
@@ -305,7 +181,7 @@ const AdditionalContent = styled.section`
 
   height: 100vh;
 
-  background-color: rgba(0, 0, 0, 0.8);
+ 
 
   color: white;
 
@@ -526,11 +402,11 @@ const AboutPage = () => {
       <GlobalStyle />
 
       <Wrapper className="wrapper">
-
+     
        
 
         <Content className="content">
- 
+        <ParallaxStars/>
 
           <section className="section gradient-purple"></section>
 
@@ -565,9 +441,9 @@ const AboutPage = () => {
               <p>for here, time itself bends and distorts under the weight of forgotten horrors.</p>
 
             </AdditionalText>
-
+           
           </AdditionalContent>
-
+       
         </Content>
 
         
