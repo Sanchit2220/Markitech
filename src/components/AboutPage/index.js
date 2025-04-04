@@ -205,21 +205,7 @@ const Content = styled.div`
 `;
 
  
-
-const HeroSection = styled.section`
-
-  background-image: url(https://images.unsplash.com/photo-1512747646639-ed824d861e0d?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D);
-
-  background-position: center center;
-
-  background-repeat: no-repeat;
-
-  background-size: cover;
-
-  transition: opacity 1s ease;
-
  
-`;
 
  
 
@@ -541,17 +527,10 @@ const AboutPage = () => {
 
       <Wrapper className="wrapper">
 
-        <Intro>
-
-          <IntroH1>The Story of</IntroH1>
-
-          <IntroP>something very spooky</IntroP>
-
-        </Intro>
+       
 
         <Content className="content">
-
-          <HeroSection className="section hero" />
+ 
 
           <section className="section gradient-purple"></section>
 
@@ -591,17 +570,7 @@ const AboutPage = () => {
 
         </Content>
 
-        <ImageContainer className="image-container">
-
-          <ImageContainerImg
-
-            src="https://uploads-ssl.webflow.com/5cff83ac2044e22cb8cf2f11/5d13364599bb70e3560cc4e5_background-min%203.png"
-
-            alt="image"
-
-          />
-
-        </ImageContainer>
+        
 
       </Wrapper>
 
