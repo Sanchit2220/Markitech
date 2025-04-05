@@ -55,11 +55,11 @@ const SparkleButtonWrapper = styled.div`
 `;
 
 const StyledButton = styled.button`
-  --cut: 0.1em;
-  --active: 0;
-  --bg: transparent;
-   
-  background: white;
+--cut: 0.1em;
+	--active: 0;
+	--bg: transparent;
+	 
+  background: transparent;
   font-size: 1.5rem;
   font-weight: 100;
   width: 9vw;
@@ -74,8 +74,12 @@ const StyledButton = styled.button`
   white-space: nowrap;
   border-radius: 100px;
   position: relative;
-  transition: box-shadow 0.3s ease, transform 0.3s ease, background 0.3s ease;
-  transform: scale(calc(1 + (var(--active) * 0.1)));
+	box-shadow:
+		0 0 calc(var(--active) * 6em) calc(var(--active) * 3em) hsl(260 97% 20% / 0.75),
+		0 0.05em 0 0 hsl(260 calc(var(--active) * 97%) calc((var(--active) * 50%) + 30%)) inset,
+		0 -0.05em 0 0 hsl(260 calc(var(--active) * 97%) calc(var(--active) * 60%)) inset;
+	transition: box-shadow var(--transition), scale var(--transition), background var(--transition);
+	scale: calc(1 + (var(--active) * 0.1));
 
 
 &:before {
@@ -87,7 +91,7 @@ const StyledButton = styled.button`
 
     z-index: -1;
 
-    border: 0.25em solid hsl(260 97% 50% / 0.5);
+    
 
     border-radius: 100px;
 
@@ -98,9 +102,7 @@ const StyledButton = styled.button`
   &:active {
     transform: scale(1);
     --active: 0;
-  --bg: radial-gradient(40% 50% at center 100%, hsl(270 calc(var(--active) * 97%) 72% / var(--active)), transparent), 
-        radial-gradient(80% 100% at center 120%, hsl(260 calc(var(--active) * 97%) 70% / var(--active)), transparent), 
-        hsl(260 calc(var(--active) * 97%) calc((var(--active) * 44%) + 12%));
+
   }
 
   &:hover,
@@ -108,6 +110,7 @@ const StyledButton = styled.button`
     path {
       animation-name: ${bounce};
     }
+        --bg:rgb(207, 145, 29);
   }
 
   svg {
