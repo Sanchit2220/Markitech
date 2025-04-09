@@ -1,10 +1,22 @@
 import React, { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { useNavigate } from "react-router-dom";
-import styled from "styled-components";
+import styled, { createGlobalStyle } from "styled-components";
 import Service1 from "../../assets/WebDevService.svg";
 import SeoImages from "../../assets/seo-service.svg";
-import FallingText from "../../ServiceAnimation/ServiceAnimation";
+
+const GlobalStyle = createGlobalStyle`
+  @keyframes scrollreveal {
+    from {
+      opacity: 0;
+      scale: 0.8;
+    }
+    to {
+      opacity: 1;
+      scale: 1;
+    }
+  }
+`;
 
 const services = [
   { title: "Web Development", image: Service1 },
@@ -46,9 +58,9 @@ const ServiceCountWrapper = styled.div`
   flex-direction: column;
   align-items: center;
   position: absolute;
-  top: 20px; /* Move downward */
-  right: -150px; /* Push left */
- `;
+  top: 20px;
+  right: -150px;
+`;
 
 const ServiceCount = styled.small`
   font-size: 5rem;
@@ -62,7 +74,7 @@ const Arrow = styled.span`
   transform: rotate(96deg);
   color: black;
   font-weight :100;
- `;
+`;
 
 const CardContainer = styled(motion.div)`
   background: white;
@@ -76,6 +88,14 @@ const CardContainer = styled(motion.div)`
   display: flex;
   flex-direction: column;
   transition: transform 0.3s ease;
+
+  ${(props) =>
+    props.animate &&
+    `
+    animation: scrollreveal linear;
+    animation-timeline: view();
+    animation-range: 0 30%;
+  `}
 
   @media (max-width: 768px) {
     width: 50vw;
@@ -148,7 +168,7 @@ const ExpandedCard = styled(motion.div)`
   overflow: hidden;
 `;
 
-const Card = ({ image, title }) => {
+const Card = ({ image, title, index }) => {
   const [isExpanded, setIsExpanded] = useState(false);
   const navigate = useNavigate();
   const slug = title.toLowerCase().replace(/\s+/g, "-");
@@ -160,6 +180,8 @@ const Card = ({ image, title }) => {
     }, 1000);
   };
 
+  const shouldAnimate = index > 1;
+
   return (
     <>
       <motion.div
@@ -167,7 +189,7 @@ const Card = ({ image, title }) => {
         onClick={handleClick}
         style={{ cursor: "pointer", position: "relative", zIndex: isExpanded ? 9999 : "auto" }}
       >
-        <CardContainer>
+        <CardContainer animate={shouldAnimate}>
           <CardImage src={image} alt={title} />
         </CardContainer>
         <CardTextWrapper>
@@ -196,6 +218,7 @@ const Card = ({ image, title }) => {
 const ServicePage = () => {
   return (
     <AppContainer>
+      <GlobalStyle />
       <FeatureTitleWrapper>
         <FeatureTitleContainer>
           <FeatureTitle>Services</FeatureTitle>
@@ -207,10 +230,9 @@ const ServicePage = () => {
       </FeatureTitleWrapper>
       <CardsWrapper>
         {services.map((service, index) => (
-          <Card key={index} image={service.image} title={service.title} />
+          <Card key={index} image={service.image} title={service.title} index={index} />
         ))}
       </CardsWrapper>
-   
     </AppContainer>
   );
 };
